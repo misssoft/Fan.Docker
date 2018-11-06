@@ -1,5 +1,9 @@
 cc/gorm-tools
 cc/compass
 cc/tools
+cc/tests
 
 ls/tools
+mmmcc/tools
+mmmcc/gorm-tools
+mmmcc/compass
