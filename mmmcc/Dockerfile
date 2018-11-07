@@ -1,8 +1,8 @@
 FROM ubuntu:16.04
 
-LABEL version="1.0.0"
-LABEL description="Oxford MMM Compass Pipeline"
-LABEL maintainer="crooks.it@ndm.ox.ac.uk"
+LABEL version="1.0.0" \
+      description="Oxford MMM Compass Pipeline (BWA)" \
+      maintainer="crookscs.it@ndm.ox.ac.uk"
 
 #Fresh update packages
 RUN apt-get update && \
@@ -56,10 +56,25 @@ RUN groupadd fuse && \
     chown compass:compass /home/compass
 
 #Set up directories
-RUN mkdir /home/compass/pipeline /data &&\
+RUN mkdir /home/compass/PIPELINE /data &&\
     chown compass:compass /data
 
-#Define env variables
+#Define env variables and copy source code
 ENV HOME=/home/compass
-ENV PIPELINE=$HOME/pipeline
-ENV PATH=${PATH}:$PIPELINE
+ENV PIPELINE=$HOME/PIPELINE
+ENV PATH=${PATH}:$PIPELINE/compass
+WORKDIR $PIPELINE
+COPY compass compass
+COPY gorm-tools gorm-tools
+
+#Compile stampy
+
+RUN cd gorm-tools/stampy-1.0.23 &&\
+    sed -i 's/-Wl//' makefile &&\
+    make
+
+#Switch User
+USER compass
+
+VOLUME [ "/home/compass/PIPELINE","/data" ]
+ENTRYPOINT [ "/bin/bash" ]
