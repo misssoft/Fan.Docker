@@ -77,3 +77,7 @@ RUN cd gorm-tools/stampy-1.0.23 &&\
 #Switch User
 USER compass
 ENTRYPOINT [ "/bin/bash" ]
+
+
+#Docker to Singularity:
+#docker run -v /var/run/docker.sock:/var/run/docker.sock -v /tmp/docker2sing:/output --privileged -t --rm singularityware/docker2singularity mmmcc:latest
