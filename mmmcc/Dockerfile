@@ -1,8 +1,9 @@
 FROM ubuntu:16.04
 
-LABEL version="1.0.0" \
-      description="Oxford MMM Compass Pipeline (BWA)" \
-      maintainer="crookscs.it@ndm.ox.ac.uk"
+LABEL version="1.0.1" \
+      description="Oxford MMM CompassNext Pipeline" \
+      maintainer="crookscs.it@ndm.ox.ac.uk" \
+      dockerhub="oxfordmmm/compassnext:v1.0.1"
 
 #Fresh update packages
 RUN apt-get update && \
@@ -75,6 +76,4 @@ RUN cd gorm-tools/stampy-1.0.23 &&\
 
 #Switch User
 USER compass
-
-VOLUME [ "/home/compass/PIPELINE","/data" ]
 ENTRYPOINT [ "/bin/bash" ]
