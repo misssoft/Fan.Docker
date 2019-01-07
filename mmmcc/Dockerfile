@@ -1,9 +1,9 @@
 FROM ubuntu:16.04
 
-LABEL version="1.0.1" \
+LABEL version="1.0.2" \
       description="Oxford MMM CompassNext Pipeline" \
       maintainer="crookscs.it@ndm.ox.ac.uk" \
-      dockerhub="oxfordmmm/compassnext:v1.0.1"
+      dockerhub="oxfordfun/compassnext:v1.0.2"
 
 #Fresh update packages
 RUN apt-get update && \
@@ -67,9 +67,19 @@ ENV PATH=${PATH}:$PIPELINE/compass
 WORKDIR $PIPELINE
 COPY compass compass
 COPY gorm-tools gorm-tools
+#Gorm-tools includes
+# bwa-0.7.15
+# gatk-v1.4.21
+# htslib-1.4.1
+# ncbi-blast-2.2.23+
+# picard
+# picard-tools-1.123
+# samtools-0.1.19
+# samtools-1.4.1
+# stampy-1.0.23    (optional)
+# Trimmomatic-0.36 (optional)
 
 #Compile stampy
-
 RUN cd gorm-tools/stampy-1.0.23 &&\
     sed -i 's/-Wl//' makefile &&\
     make
@@ -77,7 +87,3 @@ RUN cd gorm-tools/stampy-1.0.23 &&\
 #Switch User
 USER compass
 ENTRYPOINT [ "/bin/bash" ]
-
-
-#Docker to Singularity:
-#docker run -v /var/run/docker.sock:/var/run/docker.sock -v /tmp/docker2sing:/output --privileged -t --rm singularityware/docker2singularity mmmcc:latest

@@ -8,9 +8,9 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    html = "<h3>Hello {name}!</h3>" \
-           "<b>Hostname:</b> {hostname}<br/>"
-    return html.format(name=os.getenv("NAME", "world"), hostname=socket.gethostname())
+    html = "<h3>Hello {name}! This is a Test App</h3>" \
+           "<b>Running at:</b> {hostname}<br/>"
+    return html.format(name="World", hostname=socket.gethostname())
 
 @app.route("/hello/<name>")
 def hello_there(name):

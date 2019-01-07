@@ -1,3 +1,6 @@
+# TO buid: docker build -t nihao . --no-cache
+# To run: docker run -p 5080:80 nihao:latest
+
 FROM ubuntu:18.04
 
 MAINTAINER oxfordfun "info@oxfordfun.com"
@@ -19,4 +22,5 @@ EXPOSE 80
 ENV NAME World
 
 CMD ["python3", "app.py"]
+
 
