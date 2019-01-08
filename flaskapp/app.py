@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from datetime import datetime
 import os
 import socket
@@ -8,9 +8,9 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    html = "<h3>Hello {name}! This is a Test App</h3>" \
-           "<b>Running at:</b> {hostname}<br/>"
-    return html.format(name="World", hostname=socket.gethostname())
+    return render_template('hello.template', 
+        name="World", 
+        hostname=socket.gethostname())
 
 @app.route("/hello/<name>")
 def hello_there(name):
